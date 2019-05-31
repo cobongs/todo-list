@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "build-css": "^0.2.0",
+    "immutable": "^4.0.0-rc.12",
+    "prop-types": "^15.7.2",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "sass": "^1.20.1"
   },
   "scripts": {
     "start": "react-scripts start",
