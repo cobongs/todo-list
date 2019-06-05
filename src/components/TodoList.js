@@ -1,49 +1,28 @@
-import React from 'react'
-// import PropTypes from 'prop-types'
-// import ImmutablePropTypes from 'react-immutable-proptypes'
+import React from 'react';
 
-const propTypes = {}
-const defaultProps = {}
-
-
-class BtnsWrapper extends React.Component {
-  constructor(props) {
-    super(props)
-
-  }
-
-  clickHandler = (idx) => {
-    this.props.callback(idx)
-  }
+class TodoList extends React.Component {
 
   render() {
+    const { data } = this;
 
     return (
       <div>
-        {
-          this.props.datas.map((value, idx)=>{
-
-            const style = {
-              border: '1px solid #ddd',
-              padding: 20,
-              backgroundColor: this.props.step === idx? 'red' : ''
-            }
-
-            return (
-              <span key={idx}
-                    style={style}
-                    onClick={()=>this.clickHandler(idx)}>
-                {value}
-              </span>
-            )
-          })
-        }
+        <ul>
+          <li>
+          {
+            data.map((item, index) => {
+             return <div>
+                <input/>
+                <button></button>
+             </div>
+            })
+          }
+          </li>
+        </ul>
       </div>
     )
   }
 }
 
-BtnsWrapper.propTypes = propTypes
-BtnsWrapper.defaultProps = defaultProps
+export default TodoList;
 
-export default BtnsWrapper
