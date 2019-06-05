@@ -1,45 +1,37 @@
 .App {
 }
 
-
-.editor-wrap {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width:100%;
-    height:200px;
-    border:1px solid;
+.writeWrap {
+    margin-bottom: 10px;
 }
-
-.navigation-group {
-    border:1px solid;
-    display:table;
-    position: relative;
-    width:100%;
-    height:200px;
+.writeWrap input {
+    height: 31px;
+    line-height: 31px;
+    margin-right: 5px;
 }
-.navigation-item {
-    display:table-cell;
-    vertical-align:middle;
-    border:1px solid;
-    text-align:center;
-}
-.navigation-item div {
-   float: left;
-}
-.navigation-item div span {
-    border:1px solid;
-    height:200px;
-    padding:20px;
+button{
+    color: #191919;
+    padding:10px 20px;
+    background-color: #ffffff;
+    outline: 1px solid #eeeeee;
 
 }
 
+button.active {
+    color:red;
+}
 
-.blank {
-    border:1px solid;
-    padding:10px;
+.TodoList ul {
+ padding: 0;
 }
-.ed-icon {
-    border:1px solid;
-    padding:10px;
+
+.TodoList li {
+    list-style: none;
 }
+
+.TodoList li input {
+    height: 31px;
+    line-height: 31px;
+    margin-right: 5px;
+}
+

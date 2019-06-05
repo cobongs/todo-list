@@ -1,22 +1,30 @@
-import React from 'react';
+import React from 'react'
 
 class TodoList extends React.Component {
 
-  render() {
-    const { data } = this;
+  render () {
+    const { listData, step } = this.props
 
     return (
-      <div>
+      <div className="TodoList">
         <ul>
           <li>
-          {
-            data.map((item, index) => {
-             return <div>
-                <input/>
-                <button></button>
-             </div>
-            })
-          }
+            {
+              listData.map((item, idx) => {
+                if(step !== item.status && step !== 0) return null
+                return <div key={idx}>
+                  <input type="text"
+                         value={item.value}
+                         disabled={item.isUpdateMode ? '' : 'disabled'}
+                         onChange={(e) => this.props.callback(e, idx)}/>
+                  <input type="checkbox"
+                         checked={item.status === 2}
+                         onChange={() => this.props.itemCheck(idx)}/>
+                  <button onClick={() => this.props.itemEdit(idx)}>{item.isUpdateMode ? '저장' : '수정'}</button>
+                  <button onClick={() => this.props.itemDel(idx)}>삭제</button>
+                </div>
+              })
+            }
           </li>
         </ul>
       </div>
@@ -24,5 +32,5 @@ class TodoList extends React.Component {
   }
 }
 
-export default TodoList;
+export default TodoList
 

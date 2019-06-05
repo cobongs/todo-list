@@ -1,61 +1,123 @@
-import React, { Component } from 'react';
+import React from 'react'
+import TodoList from './components/TodoList'
+import BtnsWrapper from './components/BtnsWrapper'
 import './App.css'
-import Movie from './Movie'
 
-const propTypes = {}
-const defaultProps = {}
+class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      activeIndex: 0,
+      text: '',
+      listData: [],
+      step:0
+    }
 
-
-class App extends Component{
-
-
-  state = {}
-
-  componentDidMount () {//1
-    this._getMovies();
+    this.tab = [
+      { label: '전체'},
+      { label: '할일'},
+      { label: '한일'}
+    ]
   }
 
-  _renderMovies = () => {
-    const movies = this.state.movies.map((movie) => {
-      console.log(movie)
-        return <Movie
-          title={movie.title_english}
-          poster={movie.medium_cover_image}
-          key={movie.id}
-          genres={movie.genres}
-          synopsis={movie.synopsis}
-        />
-      })
-    return movies
+  enter = (e) => {
+    if (e.keyCode === 13) {
+      this.write()
+    }
   }
 
-  _getMovies = async () => {
-    const movies = await this._callApi()
+  handelOnChange = (e) => {
+    this.setState({ text: e.target.value })
+  }
+
+  write = () => {
+    const text = this.state.text
+    if (text === '') return
+
+    const newData = []
+    const now = new Date().getTime()
+    newData.push(...this.state.listData,
+      { key: now, value: text, status: 1, isUpdateMode: false }
+      )
+
     this.setState({
-      movies
+      listData: newData,
+      text: ''
     })
   }
 
-  _callApi = () => {
-    return fetch('https://yts.am/api/v2/list_movies.json?sort_by=like_count')
-      .then(potato => potato.json())
-      .then(json => json.data.movies)
-      .catch(err => console.log(err))
+  setStep = (idx) => {
+    this.setState({
+      step: idx,
+      activeIndex: idx
+    })
   }
 
+  changeHandler = (e, idx) => {
+    const newData = [...this.state.listData]
+    newData[idx].value = e.target.value
 
+    this.setState({
+      listData: newData
+    })
+  }
 
-  render() {//2
-    return(
-      <div className="App">
-        {this.state.movies ? this._renderMovies() : 'Loading'}
+  itemCheck = (idx) => {
+    const newData = [...this.state.listData]
+    newData[idx].status = newData[idx].status === 1 ? 2 : 1
+    this.setState({
+      listData: newData,
+      text: ''
+    })
+  }
+
+  itemEdit = (idx) => {
+    const newData = [...this.state.listData]
+    newData[idx].isUpdateMode =! newData[idx].isUpdateMode
+
+    this.setState({
+      listData: newData,
+      text:''
+    })
+  }
+
+  itemDel = (idx) => {
+    const newData = [...this.state.listData]
+    newData.splice(idx, 1)
+
+    this.setState({
+      listData: newData
+    })
+  }
+
+  render () {
+    return (
+      <div>
+        <div className="writeWrap">
+          <input type="text"
+                 onKeyUp={this.enter}
+                 value={this.state.text}
+                 onChange={this.handelOnChange}
+          />
+          <button onClick={this.write}>실행</button>
+        </div>
+
+        <BtnsWrapper tab={this.tab}
+                     activeIndex={this.state.activeIndex}
+                     callback={this.setStep}/>
+
+        <TodoList listData={this.state.listData}
+                  callback={this.changeHandler}
+                  step={this.state.step}
+                  itemCheck={this.itemCheck}
+                  itemEdit={this.itemEdit}
+                  itemDel={this.itemDel}
+
+        />
+
       </div>
-
     )
   }
 }
-
-App.propTypes = propTypes
-App.defaultProps = defaultProps
 
 export default App

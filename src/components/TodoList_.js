@@ -5,7 +5,7 @@ import React from 'react'
 const propTypes = {}
 const defaultProps = {}
 
-class TodoList extends React.Component {
+class TodoList_ extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
@@ -45,7 +45,7 @@ class TodoList extends React.Component {
   }
 }
 
-TodoList.propTypes = propTypes
-TodoList.defaultProps = defaultProps
+TodoList_.propTypes = propTypes
+TodoList_.defaultProps = defaultProps
 
-export default TodoList
+export default TodoList_

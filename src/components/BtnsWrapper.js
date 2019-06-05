@@ -1,26 +1,19 @@
-import React from 'react';
-
+import React from 'react'
 
 class BtnsWrapper extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
-  clickHandler = (idx) => {
-    this.props.callback(idx)
-  }
-
   render () {
-    const { step } = this.props
+    const { tab, activeIndex } = this.props
 
     return (
       <div>
         {
-          step.map((value, idx) => {
+          tab.map((value, idx) => {
             return <button key={idx}
-                           onClick={() => this.clickHandler(idx)}>
-                    {value}
-                  </button>
+                           data-index={idx}
+                           className={idx === activeIndex ? 'active' : ''}
+                           onClick={() => this.props.callback(idx)}>
+              {value['label']}
+            </button>
           })
         }
       </div>
@@ -28,4 +21,4 @@ class BtnsWrapper extends React.Component {
   }
 }
 
-export default BtnsWrapper;
+export default BtnsWrapper

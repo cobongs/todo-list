@@ -6,7 +6,7 @@ const propTypes = {}
 const defaultProps = {}
 
 
-class BtnsWrapper extends React.Component {
+class BtnsWrapper_ extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -38,7 +38,7 @@ class BtnsWrapper extends React.Component {
   }
 }
 
-BtnsWrapper.propTypes = propTypes
-BtnsWrapper.defaultProps = defaultProps
+BtnsWrapper_.propTypes = propTypes
+BtnsWrapper_.defaultProps = defaultProps
 
-export default BtnsWrapper
+export default BtnsWrapper_
