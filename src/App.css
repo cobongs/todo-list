@@ -1,37 +1,17 @@
 .App {
 }
 
-.writeWrap {
-    margin-bottom: 10px;
-}
-.writeWrap input {
-    height: 31px;
-    line-height: 31px;
-    margin-right: 5px;
-}
-button{
-    color: #191919;
-    padding:10px 20px;
-    background-color: #ffffff;
-    outline: 1px solid #eeeeee;
 
-}
 
 button.active {
     color:red;
 }
 
-.TodoList ul {
+.TodoList {
  padding: 0;
 }
 
 .TodoList li {
     list-style: none;
-}
-
-.TodoList li input {
-    height: 31px;
-    line-height: 31px;
-    margin-right: 5px;
 }
 
