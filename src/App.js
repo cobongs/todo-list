@@ -2,57 +2,61 @@ import React from 'react'
 import BtnsWrapper from './components/BtnsWrapper'
 import TodoList from './components/TodoList'
 import './App.css'
+import Lotton from './components/lotto/lotto'
+import TimeTable from './components/timeTable/timeTable'
+// import PropTypes from 'prop-types'
+// import ImmutablePropTypes from 'react-immutable-proptypes'
+
+const propTypes = {}
+const defaultProps = {}
+
 
 class App extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      activeIndex: 0,
-      listData: [],
-      text: '',
-      step: 0,
-      tab: [
-        '전체', '할일', '한일'
-      ]
+        text:'',
+        listData:[],
+        tab: [
+      '전체', '할일', '한일'
+      ],
+      step:0
     }
   }
 
   enter = (e) => {
-    if (e.keyCode === 13) {
-      this.write()
+    if(e.keyCode === 13){
+      this.Write()
     }
   }
 
-  onChangeHandel = (e) => {
-    this.setState({ text: e.target.value })
+  handleChange = (e) => {
+    this.setState({text: e.target.value})//e
   }
 
-  write = () => {
-    const text = this.state.text
-    if (text === '') return
+  Write = () => {
+    const text = this.state.text//e
+    if(text === '') return
 
-    const newData = []
     const now = new Date().getTime()
+    const newData = []
     newData.push(...this.state.listData, {
-      key: now, value: text, status: 1, isUpdateMode: false
+      key: now, value: text, status:1, isUpDataMode: false
     })
 
     this.setState({
-      listData: newData,
-      text: ''
+      text: '',
+      listData: newData
     })
   }
 
-  step = (idx) => {
-    console.log(idx)
+  clickHandel = (idx) => {
     this.setState({
-      step: idx,
-      activeIndex: idx
-
+      step: idx
     })
   }
 
-  handelChange = (e, idx) => {
+  changeHandle = (e, idx) => {
     const newData = [...this.state.listData]
     newData[idx].value = e.target.value
 
@@ -61,7 +65,7 @@ class App extends React.Component {
     })
   }
 
-  onCkecked = (idx) => {
+  onCheck = (idx) => {
     const newData = [...this.state.listData]
     newData[idx].status = newData[idx].status === 1 ? 2 : 1
 
@@ -72,8 +76,12 @@ class App extends React.Component {
   }
 
   onEdit = (idx) => {
+    //새로운 값을 먼저 셋팅하는 이유는 같은곳에 계속 저장되선 안되므로 새로운 곳에 새로운 값으로 저장하기위해서
+    //새로운 객체 구축하여 업데이트
+    // const newData = [...this.state.listData]
+
     const newData = [...this.state.listData]
-    newData[idx].isUpdateMode =! newData[idx].isUpdateMode
+    newData[idx].isUpDataMode = !newData[idx].isUpDataMode
 
     this.setState({
       listData: newData,
@@ -82,12 +90,12 @@ class App extends React.Component {
   }
 
   onDel = (idx) => {
-      const newData = [...this.state.listData]
-      newData.splice(idx, 1)
+   const newData = [...this.state.listData]
+   newData.splice(idx, 1)
 
-      this.setState({
-        listData: newData
-      })
+   this.setState({
+     listData: newData
+   })
   }
 
   allDel = () => {
@@ -99,34 +107,39 @@ class App extends React.Component {
     })
   }
 
-  render () {
+  render() {
 
-    return (
+    const {enter, handleChange, Write, clickHandel, changeHandle, onCheck, onEdit, onDel} = this
+    const {text, tab, step, listData} = this.state
+
+    return(
       <div>
-        <div>
-          <input type="text"
-                 placeholder="입력하세요"
-                 value={this.state.text}
-                 onKeyUp={this.enter}
-                 onChange={this.onChangeHandel}/>
-          <button onClick={this.write}>실행</button>
+        <input type="text"
+               placeholder="입력하세요"
+               value={text}
+               onKeyUp={enter}
+               onChange={handleChange}/>
+        <button  onClick={Write}>실행</button>
+        <BtnsWrapper tab={tab}
+                     step={step}
+                     clickHandel={clickHandel}/>
+         <TodoList listData={listData}
+                   step={step}
+                   changeHandle={changeHandle}
+                   onCheck={onCheck}
+                   onEdit={onEdit} onDel={onDel}/>
 
-          <BtnsWrapper tab={this.state.tab}
-                       activeIndex={this.state.activeIndex}
-                       callback={this.step}/>
+        <button onClick={this.allDel}>전체삭제</button>
 
-         <TodoList listData={this.state.listData}
-                   step={this.state.step}
-                   handelChange={this.handelChange}
-                   onCkecked={this.onCkecked}
-                   onEdit={this.onEdit}
-                   onDel={this.onDel}/>
+          <Lotton/>
 
-          <button onClick={this.allDel}>전체삭제</button>
-        </div>
+          <TimeTable/>
       </div>
     )
   }
 }
+
+App.propTypes = propTypes
+App.defaultProps = defaultProps
 
 export default App

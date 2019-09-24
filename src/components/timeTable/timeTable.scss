@@ -1,0 +1,89 @@
+div.time-table-wrap {
+  position: relative;
+  width: 606px;
+
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  > .contents {
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    > h2 {
+      font-size: 14px;
+      text-align: center;
+
+      > span {
+        font-size: 12px;
+        padding-left: 10px;
+      }
+    }
+
+    > div.list {
+      display: block;
+
+      > ul {
+        padding:0;
+        float: left;
+        border-top:1px solid #eee;
+
+        > li {
+          border-bottom:1px solid #eee;
+          border-right:1px solid #eee;
+          list-style: none;
+          width:100px;
+          height:50px;
+          line-height: 50px;
+          display: block;
+          text-align: center;
+
+          > input {
+            width: 91px;
+            height: 46px;
+            border: 0;
+            font-size: 13px;
+            text-align: center;
+          }
+
+          &:first-child {
+            background-color: #f9f9f9;
+          }
+        }
+
+        &:first-child {
+
+          > li {
+            background-color: #f9f9f9;
+
+            > input{
+              background: #f9f9f9;
+            }
+          }
+        }
+      }
+    }
+
+    > div.button {
+      border: 0;
+      height: 50px;
+      text-align: center;
+
+      > button {
+        display: inline-block;
+        width: 80px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 13px;
+        color: #fff;
+        background-color: black;
+        border: 0;
+      }
+    }
+  }
+}
